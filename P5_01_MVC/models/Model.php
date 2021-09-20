@@ -196,7 +196,7 @@ abstract class Model
            $req = self::$_bdd->prepare("UPDATE ".$table." SET title='".htmlspecialchars($_POST['title-edit'])."',chapo='".
                                        htmlspecialchars($_POST['sub-title-edit'])."',
                                        content='".htmlspecialchars($_POST['content-edit']).
-                                        "', date= now() WHERE id = ?");
+                                        "', date= now() WHERE id = ?");//XSS
       
            
            $req->execute(array($id));
@@ -237,7 +237,7 @@ abstract class Model
  
 
         
-        protected function register($table, $obj)
+        protected function login($table, $obj)
         {
           $var = [];
           

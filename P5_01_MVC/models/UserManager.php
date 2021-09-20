@@ -21,16 +21,16 @@
     }   
     
     
-    public function registerUser()
+    public function loginUser()
     {
 
-      return $this->register('users', 'user');
+      return $this->login('users', 'user');
 
     }
 
 
 
-    public function CheckUserRegistration()
+    public function CheckUserLogin()
     {
 
       return $this->checkUserEmail('users', 'email');

@@ -34,12 +34,12 @@ function postAjaxCom(){
 
 
     // Create our XMLHttpRequest object
-    var hr = new XMLHttpRequest();
+    var hr = new XMLHttpRequest(); //api de javascript qui communique avec le serveur  directement
     // Create some variables we need to send to our PHP file
-    var url = "./controllers/ControllerCom.php";
-    var fn = document.getElementById("cont").value;
+    var url = "./controllers/ControllerCom.php"; //on lui indique le chemin avec qui communiquer
+    var fn = document.getElementById("cont").value;//valeur du commentaire saisi
 
-    var cont=document.getElementsByName('cont')[0];
+    var cont=document.getElementsByName('cont')[0];// 
 
 
     if( fn ) {

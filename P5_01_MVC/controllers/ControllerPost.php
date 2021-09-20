@@ -18,6 +18,7 @@ class ControllerPost
 
 
     public function __construct()
+
     {
         if(isset($url) && count($url) < 1){
             throw new \Exception("Page introuvable", 1);
@@ -97,7 +98,7 @@ class ControllerPost
           }
 
           elseif (isset($_GET['user'])) {
-            $this->register();
+            $this->login();
 
           }
 
@@ -167,7 +168,7 @@ class ControllerPost
     // }
 
 
-    private function adcreate(){
+    private function adcreate(){//Créer article ds vue Admin
 
       if (isset($_GET['adcreate'])){
         
@@ -286,7 +287,7 @@ class ControllerPost
       
       $this->_userManager = new UserManager;
 
-      $chekedUser = $this->_userManager->CheckUserRegistration();
+      $chekedUser = $this->_userManager->CheckUserLogin();
 
       if(empty($chekedUser) ) {
 
@@ -322,13 +323,14 @@ class ControllerPost
 
 
     // S'auto-envoyer le message de contact
-    private function contactMessage()
+    private function contactMessage() //rajouter sécurité
     {
 
      
            $objectemail= $_POST['object'].' ---- '.$_POST['email'].' ---- '.$_POST['name'];
+           $bodyemail=$_POST['message'];
 
-            if(mail('knzbens1@gmail.com', $objectemail, $_POST['message'],'From: knzbens1@gmail.com')){
+            if(mail('knzbens1@gmail.com', htmlspecialchars($objectemail), htmlspecialchars($bodyemail),'From: knzbens1@gmail.com')){
 
                 echo '<script> alert("Votre message a bien été envoyé aux administrateurs!");</script>';
             }else{
@@ -355,13 +357,13 @@ class ControllerPost
 
 
      //connexion user
-    private function register()
+    private function login()
     
     {
       
 
       $this->_userManager = new UserManager;
-      $currentUser = $this->_userManager->registerUser();
+      $currentUser = $this->_userManager->loginUser();
 
         if(isset($currentUser[0])){
           $_SESSION['id']= $currentUser[0]->id();
@@ -377,11 +379,18 @@ class ControllerPost
 
             header("location: accueil");
 
-        } else {
+          } 
+          else {
 
             session_unset();
             echo '<script> alert("Votre compte n\'a pas été reconnu.Merci de vérifier votre email ou votre mot de passe");</script>';
-        }
+          }
+      }
+      else 
+      {
+        session_unset();
+        echo '<script> alert("Votre compte n\'a pas été reconnu.Merci de vérifier votre email ou votre mot de passe");</script>';
+       
       }
     }
 
@@ -403,7 +412,7 @@ class ControllerPost
 
 
   
-      if($_SESSION['permission']<1){
+      if($_SESSION['permission']<1){//<1 pour éviter injection script php
 
         header('location: post&connexion');
      

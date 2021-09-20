@@ -71,7 +71,7 @@
                                 <!-- Submit Button-->
                                 <button id="submitButton" class="btn btn-primary btn-lg" type="submit">Envoyer</button>
                             </form>
-                            <button id="submitButton" action="post&message" class="btn btn-primary btn-lg" type="submit">Envoyer</button>
+                           
                         </div>
                     </div>
                 </div>
